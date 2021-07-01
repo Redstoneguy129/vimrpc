@@ -1,0 +1,76 @@
+{
+  "languages": [
+    {
+      "name": "C++",
+      "icon": "cpp_hpp"
+    },
+    {
+      "name": "C",
+      "icon": "c_h"
+    },
+    {
+      "name": "Javascript",
+      "icon": "js"
+    },
+    {
+      "name": "Typescript",
+      "icon": "ts"
+    },
+    {
+      "name": "React",
+      "icon": "jsx_tsx"
+    },
+    {
+      "name": "CSS",
+      "icon": "css"
+    },
+    {
+      "name": "HTML",
+      "icon": "html"
+    },
+    {
+      "name": "Docker",
+      "icon": "dockerfile"
+    },
+    {
+      "name": "Lua",
+      "icon": "lua"
+    },
+    {
+      "name": "Java",
+      "icon": "java"
+    },
+    {
+      "name": "Vim",
+      "icon": "vim"
+    },
+    {
+      "name": "Vue",
+      "icon": "vue"
+    },
+    {
+      "name": "Yaml",
+      "icon": "yaml_yml"
+    },
+    {
+      "name": "Kotlin",
+      "icon": "kt"
+    },
+    {
+      "name": "Json",
+      "icon": "json"
+    },
+    {
+      "name": "Python",
+      "icon": "py"
+    },
+    {
+      "name": "C#",
+      "icon": "cs"
+    },
+    {
+      "name": "Git",
+      "icon": "*git"
+    }
+  ]
+}
