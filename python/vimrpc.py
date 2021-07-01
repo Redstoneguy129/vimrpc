@@ -14,7 +14,7 @@ else:
     with open(os.path.join(vim.eval('s:plugin_root_dir'), '..', 'vimrpc.json'), 'r') as config_file:
         config = json.load(config_file)
 
-has_thumbnail = '_'.join([item['name'] for item in config['filetypes']]).split('_')
+has_thumbnail = '_'.join([item['name'] for item in config['languages']]).split('_')
 has_thumbnail.pop()
 remap = {item['icon']: item['name'] for item in config['languages'] if 'icon' in item}
 
