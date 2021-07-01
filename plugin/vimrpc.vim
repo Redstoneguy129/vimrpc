@@ -79,6 +79,18 @@ function! DiscordDisconnect(tid)
     let s:timer = -1
 endfunction
 
+function vimrpc.update()
+    python3 vimrpc.update()
+end
+
+function vimrpc.reconnect()
+    python3 vimrpc.reconnect()
+end
+
+function vimrpc.disconnect()
+    python3 vimrpc.disconnect()
+end
+
 " Register the vim commands
 command! -nargs=0 DiscordUpdate call vimrpc#update()
 command! -nargs=0 DiscordReconnect call vimrpc#reconnect()

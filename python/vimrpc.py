@@ -18,40 +18,29 @@ has_thumbnail = '_'.join([item['name'] for item in config['languages']]).split('
 has_thumbnail.pop()
 remap = {item['icon']: item['name'] for item in config['languages'] if 'icon' in item}
 
-ignored_file_types = -1
-ignored_directories = -1
-
 
 def setPresence(language: str, filePath: str, rpc):
     languageName = language
     for icon in remap:
         if "_" in icon:
-            # icon with multiple extensions
             for i in icon.split("_"):
                 if i == language:
-                    print(i + " == " + language)
                     languageName = remap[icon]
                     language = icon
         else:
-            # icon with single extension
             if "*" in icon:
                 if icon[1:] in language:
                     languageName = language.title()
                     language = icon[1:]
             else:
                 if icon == language:
-                    print(icon + " == " + language)
                     languageName = remap[icon]
-
-    print("Language Image: " + language.lower())
-    print("Language Name: " + languageName)
     presence = {
         "language": language.lower(),
         "languageName": languageName,
         "filePath": filePath,
         "stop": False
     }
-    print(json.dumps(presence))
     rpc.sendall(bytes(json.dumps(presence), encoding="utf-8"))
 
 
@@ -61,21 +50,6 @@ rpc_socket.connect_ex(((os.getenv("SSH_CONNECTION").split(" ")[0] if os.getenv("
 
 
 def update():
-    global ignored_file_types
-    global ignored_directories
-
-    if ignored_file_types == -1:
-        # Lazy init
-        if vim.eval('exists("g:vimrpc_ignored_file_types")') == '1':
-            ignored_file_types = vim.eval('g:vimrpc_ignored_file_types')
-        else:
-            ignored_file_types = []
-
-        if vim.eval('exists("g:vimrpc_ignored_directories")') == '1':
-            ignored_directories = vim.eval('g:vimrpc_ignored_directories')
-        else:
-            ignored_directories = []
-
     filename = get_filename()
     directory = get_directory()
     filetype = get_filetype()
