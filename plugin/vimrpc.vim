@@ -80,10 +80,9 @@ function! DiscordDisconnect(tid)
 endfunction
 
 " Register the vim commands
-command! -nargs=0 UpdatePresence echo "This command has been deprecated. Use :DiscordUpdatePresence instead."
-command! -nargs=0 DiscordUpdatePresence call DiscordAsyncWrapper(function('DiscordUpdatePresence'))
-command! -nargs=0 DiscordReconnect call DiscordAsyncWrapper(function('DiscordReconnect'))
-command! -nargs=0 DiscordDisconnect call DiscordAsyncWrapper(function('DiscordDisconnect'))
+command! -nargs=0 DiscordUpdate call vimrpc#update()
+command! -nargs=0 DiscordReconnect call vimrpc#reconnect()
+command! -nargs=0 DiscordDisconnect call vimrpc#disconnect()
 
 augroup DiscordPresence
     autocmd!
