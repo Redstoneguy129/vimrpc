@@ -57,6 +57,7 @@ def setPresence(language: str, filePath: str, rpc):
 
 rpc_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 rpc_socket.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+rpc_socket.connect_ex(((os.getenv("SSH_CONNECTION").split(" ")[0] if os.getenv("SSH_CONNECTION") is not None else "127.0.0.1"), 3500))
 
 
 def update():
