@@ -8,6 +8,8 @@ if exists('g:vimrpc_loaded')
     finish
 endif
 
+echo 'Loading vimrpc'
+
 let s:plugin_root_dir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
 let s:vimrpc_has_timers = has("timers")
