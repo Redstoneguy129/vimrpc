@@ -1,6 +1,7 @@
 from contextlib import suppress, contextmanager
 from .pidlock import PidLock, get_tempdir
 from os.path import basename, join
+from time import time
 import neovim
 import atexit
 import os
