@@ -66,7 +66,7 @@ class Discord(object):
             if "_" in icon:
                 for i in icon.split("_"):
                     if i == language:
-                        languageName = remap[icon]
+                        languageName = self.remap[icon]
                         language = icon
             else:
                 if "*" in icon:
@@ -75,7 +75,7 @@ class Discord(object):
                         language = icon[1:]
                 else:
                     if icon == language:
-                        languageName = remap[icon]
+                        languageName = self.remap[icon]
         payload = {
             "language": language.lower(),
             "languageName": languageName,
