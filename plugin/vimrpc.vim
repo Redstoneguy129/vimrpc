@@ -1,107 +1,31 @@
-" Closes if vim does not have python3
+if !has('nvim')
+    echoerr 'This plugin requires Neovim'
+    finish
+endif
+if !has('timers')
+    echoerr 'This plugin requires +timers build option'
+    finish
+endif
 if !has('python3')
-    echo 'Vim has to be compiled with +python3.'
+    echoerr 'This plugin requires python3'
     finish
 endif
 
-if exists('g:vimrpc_loaded')
-    finish
+if !exists('g:vimrpc_activate_on_enter')
+    let g:vimrpc_activate_on_enter = 1
 endif
-
-echo 'Loading vimrpc'
-
-let s:plugin_root_dir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-
-let s:vimrpc_has_timers = has("timers")
-let s:timer = -1
-let s:vimrpc_init=0
-
-" This loads the main dependencies and appends to the system path
-python3 << EOF
-import sys
-from os.path import normpath, join
-import vim
-plugin_root_dir = vim.eval('s:plugin_root_dir')
-python_root_dir = normpath(join(plugin_root_dir, '..', 'python'))
-sys.path.insert(0, python_root_dir)
-EOF
-
-" Async init of vimrpc. Should prevent Vim from starting slowly
-function! s:InitializeDiscord()
-    if s:vimrpc_init
-        return
-    endif
-    python3 import vimrpc
-    let s:vimrpc_init=1
-endfunction
-
-function! DiscordAsyncWrapper(callback)
-    if s:vimrpc_has_timers
-        if s:timer != -1
-            " Timer protection; this avoids issues when double events are
-            " dispatched.
-            " This exists purely to avoid issuing several timers as a result
-            " of the autocmd detecting file changes. (see the bottom
-            " of this script). Time timer is so low that it shouldn't
-            " interfere with several commands being dispatched at once.
-            let info = timer_info(s:timer)
-            if len(info) == 1 && info[0]["paused"] == 0
-                " The timer is running; skip.
-                return
-            endif
-        endif
-        " Start the timer to dispatch the event
-        let s:timer = timer_start(100, a:callback)
-    else
-        " Fallback; no timer support, call the function directly.
-        call a:callback(0)
-    endif
-endfunction
-
-" Note on the next functions with a tid argument:
-" tid is short for timer id, and it's automatically
-" passed to timer callbacks.
-function! DiscordUpdatePresence(tid)
-    call s:InitializeDiscord()
-    python3 vimrpc.update()
-    let s:timer = -1
-endfunction
-
-" Reconnect the discord rich presence
-function! DiscordReconnect(tid)
-    call s:InitializeDiscord()
-    python3 vimrpc.reconnect()
-    let s:timer = -1
-endfunction
-
-" Disconnect the discord rich presence
-function! DiscordDisconnect(tid)
-    call s:InitializeDiscord()
-    python3 vimrpc.disconnect()
-    let s:timer = -1
-endfunction
-
-function vimrpc.update()
-    python3 vimrpc.update()
-end
-
-function vimrpc.reconnect()
-    python3 vimrpc.reconnect()
-end
-
-function vimrpc.disconnect()
-    python3 vimrpc.disconnect()
-end
-
-" Register the vim commands
-command! -nargs=0 DiscordUpdate call vimrpc#update()
-command! -nargs=0 DiscordReconnect call vimrpc#reconnect()
-command! -nargs=0 DiscordDisconnect call vimrpc#disconnect()
-
-augroup DiscordPresence
-    autocmd!
-    autocmd BufNewFile,BufRead,BufEnter * :call DiscordAsyncWrapper(function('DiscordUpdatePresence'))
-augroup END
-
-" Set loaded to true
-let g:vimrpc_loaded = 1
+if !exists('g:vimrpc_reconnect_threshold')
+    let g:vimrpc_reconnect_threshold = 5
+endif
+if !exists('g:vimrpc_log_debug')
+    let g:vimrpc_log_debug = 0
+endif
+if !exists('g:vimrpc_log_warn')
+    let g:vimrpc_log_warn = 1
+endif
+if !exists('g:vimrpc_trace')
+    let g:vimrpc_trace = []
+endif
+if !exists('g:plugin_root_dir')
+    let g:plugin_root_dir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+endif
