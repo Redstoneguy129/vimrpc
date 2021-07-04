@@ -86,8 +86,8 @@ class VimRPCPlugin(object):
             config = json.load(config_file)
         has_thumbnail = '_'.join([item['name'] for item in config['languages']]).split('_')
         has_thumbnail.pop()
-        if ft not in has_thumbnail:
-            return
+        #if ft not in has_thumbnail:
+        #    return
         workspace = self.get_workspace()
         if self.is_ratelimited(filename):
             if self.cbtimer:
