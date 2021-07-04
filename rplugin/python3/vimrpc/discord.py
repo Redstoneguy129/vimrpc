@@ -34,7 +34,7 @@ class Discord(object):
         self.remap = {item['icon']: item['name'] for item in config['languages'] if 'icon' in item}
 
     def connect(self):
-        self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         try:
             self.sock.connect_ex((str(os.getenv("SSH_CONNECTION").split(" ")[0]), 3500))
