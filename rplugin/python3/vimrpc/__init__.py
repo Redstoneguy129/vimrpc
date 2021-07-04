@@ -1,13 +1,7 @@
 from .pidlock import PidLock, get_tempdir
 from os.path import basename, join
 import neovim
-import vim
 import os
-
-with open(os.path.join(vim.eval('s:plugin_root_dir'), '..', '..', '..', 'vimrpc.json'), 'r') as config_file:
-    config = json.load(config_file)
-has_thumbnail = '_'.join([item['name'] for item in config['languages']]).split('_')
-has_thumbnail.pop()
 
 
 @contextmanager
@@ -81,6 +75,10 @@ class VimRPCPlugin(object):
         self.log_debug('filename: {}'.format(filename))
         ft = self.get_current_buf_var("&ft")
         self.log_debug('ft: {}'.format(ft))
+        with open(os.path.join(self.vim.eval('s:plugin_root_dir'), '..', '..', '..', 'vimrpc.json'), 'r') as config_file:
+            config = json.load(config_file)
+        has_thumbnail = '_'.join([item['name'] for item in config['languages']]).split('_')
+        has_thumbnail.pop()
         if ft not in has_thumbnail:
             return
         workspace = self.get_workspace()
