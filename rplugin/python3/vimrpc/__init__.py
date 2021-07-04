@@ -59,7 +59,7 @@ class VimRPCPlugin(object):
             if self.locked:
                 self.log_warning("pidfile exists")
                 return
-            self.discord = Discord(reconnect_threshold)
+            self.discord = Discord(self.vim, reconnect_threshold)
             with handle_lock(self):
                 self.discord.connect()
                 self.log_debug("init")
