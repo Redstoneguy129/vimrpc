@@ -65,13 +65,13 @@ class VimRPCPlugin(object):
                 self.log_warning("pidfile exists")
                 return
             self.discord = Discord(self.vim, reconnect_threshold)
-            self.discord.update("cpp", "src/hello.cpp")
             with handle_lock(self):
                 self.discord.connect()
                 self.log_debug("init")
             if self.locked:
                 return
             atexit.register(self.shutdown)
+        self.discord.update("cpp", "src/hello.cpp")
         ro = self.get_current_buf_var("&ro")
         if ro:
             return
