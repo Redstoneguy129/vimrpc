@@ -138,3 +138,5 @@ class VimRPCPlugin(object):
     def shutdown(self):
         self.lock.unlock()
         self.discord.disconnect()
+        
+__all__ = ['VimRPCPlugin']
