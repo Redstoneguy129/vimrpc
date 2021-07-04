@@ -72,7 +72,6 @@ class VimRPCPlugin(object):
             if self.locked:
                 return
             atexit.register(self.shutdown)
-        #self.discord.update("cpp", "src/hello.cpp")
         ro = self.get_current_buf_var("&ro")
         if ro:
             return
@@ -86,8 +85,9 @@ class VimRPCPlugin(object):
             config = json.load(config_file)
         has_thumbnail = '_'.join([item['name'] for item in config['languages']]).split('_')
         has_thumbnail.pop()
-        #if ft not in has_thumbnail:
-        #    return
+        ft = basename(filename).split(".")[len(basename(filename).split("."))]
+        if ft not in has_thumbnail:
+            return
         workspace = self.get_workspace()
         if self.is_ratelimited(filename):
             if self.cbtimer:
@@ -99,7 +99,7 @@ class VimRPCPlugin(object):
             self._update_presence(filename, ft, workspace)
 
     def _update_presence(self, filename, ft, workspace):
-        self.discord.update(ft, workspace+"/"+basename(filename))
+        self.discord.update(ft, workspace+"/"+filename)
 
     def get_current_buf_var(self, var):
         return self.vim.call("getbufvar", self.vim.current.buffer.number, var)
