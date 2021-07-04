@@ -29,7 +29,7 @@ class Discord(object):
         self.reconnect_threshold = reconnect_threshold
         self.reconnect_counter = 0
         self.sock = None
-        with open(os.path.join(vim.eval('g:plugin_root_dir'), '..', '..', '..', 'vimrpc.json'), 'r') as config_file:
+        with open(os.path.join(vim.eval('g:plugin_root_dir'), '..', 'vimrpc.json'), 'r') as config_file:
             config = json.load(config_file)
         self.remap = {item['icon']: item['name'] for item in config['languages'] if 'icon' in item}
 
