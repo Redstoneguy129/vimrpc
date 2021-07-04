@@ -99,6 +99,9 @@ class VimRPCPlugin(object):
             self._update_presence(filename, ft, workspace)
 
     def _update_presence(self, filename, ft, workspace):
+        filenameList = filename.split(workspace)
+        filenameList.pop(0)
+        filename = ' '.join(filenameList)
         self.discord.update(ft, workspace+"/"+filename)
 
     def get_current_buf_var(self, var):
