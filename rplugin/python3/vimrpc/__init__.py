@@ -1,6 +1,7 @@
 from .pidlock import PidLock, get_tempdir
 from os.path import basename, join
 import neovim
+import vim
 import os
 
 with open(os.path.join(vim.eval('s:plugin_root_dir'), '..', '..', '..', 'vimrpc.json'), 'r') as config_file:
