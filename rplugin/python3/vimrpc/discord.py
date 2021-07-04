@@ -1,6 +1,7 @@
 from contextlib import suppress, contextmanager
 import socket
 import json
+import vim
 import os
 
 with open(os.path.join(vim.eval('s:plugin_root_dir'), '..', '..', '..', 'vimrpc.json'), 'r') as config_file:
