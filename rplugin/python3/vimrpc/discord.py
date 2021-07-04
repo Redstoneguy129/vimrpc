@@ -37,8 +37,7 @@ class Discord(object):
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         try:
-            self.sock.connect_ex(((os.getenv("SSH_CONNECTION").split(" ")[0] if os.getenv(
-                "SSH_CONNECTION") is not None else "127.0.0.1"), 3500))
+            self.sock.connect_ex(((os.getenv("SSH_CONNECTION").split(" ")[0] if os.getenv("SSH_CONNECTION") is not None else "127.0.0.1"), 3500))
         except (ConnectionAbortedError, ConnectionRefusedError):
             raise NoDiscordClientError()
 
