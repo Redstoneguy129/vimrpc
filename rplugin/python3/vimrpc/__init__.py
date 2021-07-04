@@ -80,7 +80,7 @@ class VimRPCPlugin(object):
         self.log_debug('filename: {}'.format(filename))
         ft = self.get_current_buf_var("&ft")
         self.log_debug('ft: {}'.format(ft))
-        with open(os.path.join(self.vim.eval('g:plugin_root_dir'), '..', '..', '..', 'vimrpc.json'), 'r') as config_file:
+        with open(os.path.join(self.vim.eval('g:plugin_root_dir'), '..', 'vimrpc.json'), 'r') as config_file:
             config = json.load(config_file)
         has_thumbnail = '_'.join([item['name'] for item in config['languages']]).split('_')
         has_thumbnail.pop()
