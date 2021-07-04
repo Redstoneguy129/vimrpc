@@ -5,6 +5,7 @@ from os.path import basename, join
 from time import time
 import neovim
 import atexit
+import json
 import os
 import re
 
