@@ -82,4 +82,4 @@ class Discord(object):
             "filePath": filePath,
             "stop": False
         }
-        self.sock.sendall(bytes(json.dumps(presence), encoding="utf-8"))
+        self.sock.sendall(bytes(json.dumps(payload), encoding="utf-8"))
