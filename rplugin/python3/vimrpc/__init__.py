@@ -85,7 +85,7 @@ class VimRPCPlugin(object):
             config = json.load(config_file)
         has_thumbnail = '_'.join([item['name'] for item in config['languages']]).split('_')
         has_thumbnail.pop()
-        ft = basename(filename).split(".")[len(basename(filename).split("."))]
+        ft = basename(filename).split(".")[len(basename(filename).split("."))-1]
         if ft not in has_thumbnail:
             return
         workspace = self.get_workspace()
