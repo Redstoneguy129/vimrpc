@@ -1,3 +1,4 @@
+from .discord_rpc import Discord, NoDiscordClientError, ReconnectError
 from contextlib import suppress, contextmanager
 from .pidlock import PidLock, get_tempdir
 from os.path import basename, join
