@@ -101,8 +101,11 @@ class VimRPCPlugin(object):
     def _update_presence(self, filename, ft, workspace):
         filenameList = filename.split(workspace)
         filenameList.pop(0)
-        filename = ' '.join(filenameList)
-        self.discord.update(ft, workspace+"/"+filename)
+        if len(' '.join(filenameList).split('/')) > 2:
+            filepath = workspace+"/.../"+basename(filename)
+        else:
+            filepath = workspace+"/"+basename(filename)
+        self.discord.update(ft, filepath)
 
     def get_current_buf_var(self, var):
         return self.vim.call("getbufvar", self.vim.current.buffer.number, var)
